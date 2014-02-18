@@ -14,7 +14,7 @@ Documentation
 Dependencies
 ------------
 ### Compiler
-ParaSuite is tested with the g++ and clang compiler. But probably it compiles with Intel C++ and Microsoft C++, too.
+ParaSuite is tested with the g++ and clang compiler. But probably it will compile with Intel C++ and Microsoft C++, too.
 ### Libraries
 * armadillo
 * boost
