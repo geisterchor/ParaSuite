@@ -1,5 +1,7 @@
 ParaSuite
 =========
+[![Build Status](https://travis-ci.org/geisterchor/ParaSuite.png?branch=master)](https://travis-ci.org/geisterchor/ParaSuite)
+
 http://parasuite.geisterchor.com
 
 

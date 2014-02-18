@@ -1,0 +1,22 @@
+language: cpp
+compiler:
+  - gcc
+  - clang
+before_install: 
+  - sudo apt-get update
+install:
+  - sudo apt-get install libarmadillo-dev
+  - sudo apt-get install libboost-all-dev
+  - sudo apt-get install python-ply
+  - wget http://mirrors.kernel.org/ubuntu/pool/universe/c/cxxtest/cxxtest_4.0.3-2_all.deb
+  - sudo dpkg -i cxxtest_4.0.3-2_all.deb
+script: make
+branches:
+  only:
+    - master
+notifications:
+  recipients:
+    - mail@malte-janduda.de
+  email:
+    on_success: change
+    on_failure: always
