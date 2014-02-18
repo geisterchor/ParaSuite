@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-std=c++11
+CFLAGS=-std=c++0x
 LDFLAGS=-larmadillo
 SOURCES=src/geometry/airfoil.cpp src/geometry/spline.cpp
 RELEASE_MAIN=src/main.cpp
