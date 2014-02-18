@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parasuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://parasuite.geisterchor.com/xml/20140217/parasuite.xsd">
+    <geometry>
+        <paraglider>
+            <airfoils>
+                <airfoil>
+                    <name>NACA2216</name>
+                    <interpolation>cubic</interpolation>
+                    <source type="csv">NACA2216.csv</source>
+                </airfoil>
+                <airfoil>
+                    <name>NACA2412</name>
+                    <interpolation>cubic</interpolation>
+                    <source type="csv">NACA2412.csv</source>
+                </airfoil>
+            </airfoils>
+            <ballooning>
+                <amplitude>
+                    <name>centered</name>
+                    <interpolation>quadratic</interpolation>
+                    <point x="0"   y="0"/>
+                    <point x="0.5" y="0.05"/>
+                    <point x="1"   y="1"/>
+                </amplitude>
+                <shape>
+                    <name>circle</name>
+                    <interpolation>cubic</interpolation>
+                    <point x="0.353553391" y="0.707106781"/>
+                    <point x="0.5"         y="1"/>
+                    <point x="0.853553391" y="0.707106781"/>
+                    <point x="1"           y="1"/>
+                </shape>
+            </ballooning>
+            <ribs></ribs>
+            <cells></cells>
+        </paraglider>
+    </geometry>
+</parasuite>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parasuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://parasuite.geisterchor.com/xml/20140217/parasuite.xsd">
+    <geometry>
+        <paraglider>
+            <airfoils>
+                <airfoil>
+                    <name>NACA2216</name>
+                    <source type="csv">NACA2216.csv</source>
+                    <interpolation>cubic</interpolation>
+                </airfoil>
+                <airfoil>
+                    <name>NACA2412</name>
+                    <source type="csv">NACA2412.csv</source>
+                    <interpolation>cubic</interpolation>
+                </airfoil>
+            </airfoils>
+            <ballooning>
+                <amplitude>
+                    <name>centered</name>
+                    <interpolation>quadratic</interpolation>
+                    <point x="0"   y="0"/>
+                    <point x="0.5" y="0.05"/>
+                    <point x="1"   y="1"/>
+                </amplitude>
+                <shape>
+                    <name>circle</name>
+                    <interpolation>cubic</interpolation>
+                    <point x="0.353553391" y="0.707106781"/>
+                    <point x="0.5"         y="1"/>
+                    <point x="0.853553391" y="0.707106781"/>
+                    <point x="1"           y="1"/>
+                </shape>
+            </ballooning>
+            <ribs>
+                <rib id="0">
+                    <airfoil>NACA2216</airfoil>
+                    <cordlength>3.5</cordlength>
+                    <cellopening>
+                        <start>3.0</start>
+                        <end>5.0</end>
+                    </cellopening>
+                    <position>
+                        <x>0.0</x>
+                        <y>0.0</y>
+                        <z>0.0</z>
+                    </position>
+                    <rotation>
+                        <psi>0.0</psi>
+                        <theta>-0.01</theta>
+                        <phi>0.0</phi>
+                    </rotation>
+                </rib>
+                <cells>
+                    <cell id="0">
+                        <topsail>
+                            <ballooning>
+                                <shape>circle</shape>
+                                <amplitude>centered</amplitude>
+                            </ballooning>
+                        </topsail>
+                        <bottomsail>
+                            <ballooning>
+                                <shape>circle</shape>
+                                <amplitude>centered</amplitude>
+                            </ballooning>
+                        </bottomsail>
+                    </cell>
+                </cells>
+            </ribs>
+        </paraglider>
+    </geometry>
+</parasuite>
