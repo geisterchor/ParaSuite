@@ -10,7 +10,7 @@
 #define _SPLINE_H
 
 #include <armadillo>
-#include <list>
+#include <deque>
 
 using namespace std;
 using namespace arma;
@@ -21,7 +21,10 @@ namespace geometry {
 
     class Spline {
         public:
-            list<vec> points;
+            deque<vec> points;
+            void calculateSpline();
+        protected:
+            mat a, b, c, d; 
     };
 
 }
