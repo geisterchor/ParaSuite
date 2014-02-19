@@ -31,9 +31,9 @@ void Spline::calculateSpline() {
     
     const unsigned int lgs_size = 4*(n-1);
     for(unsigned int p=0; p<3; p++) {
-        mat M(lgs_size,lgs_size);
+        MatrixXd M(lgs_size,lgs_size);
         M.fill(0);
-        vec rhs(lgs_size);
+        VectorXd rhs(lgs_size);
         rhs.fill(0);
         
         for(unsigned int i=0; i<n; i++)
@@ -76,11 +76,12 @@ void Spline::calculateSpline() {
         
         rhs(4*(n-1)-2) = rhs(4*(n-1)-2) + rhs(4*(n-1)-3);
         
-        vec x = solve(M,rhs);
+        VectorXd x = M.colPivHouseholderQr().solve(rhs);
         
         
-        cout << M << endl;      
-        cout << rhs << endl;    
-        cout << x << endl;        
+        cout << "M:" << endl << M << endl << endl;      
+        cout << "RHS:" << endl << rhs << endl << endl;    
+        cout << "x:" << endl << x << endl << endl;        
+        cout << "Residuum:" << (M*x - rhs).norm() << endl << endl;
     }    
 }

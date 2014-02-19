@@ -9,10 +9,13 @@
 #ifndef _RIB_H
 #define _RIB_H
 
-#include <armadillo>
+#include <Eigen/Dense>
+
 #include "spline.h"
 
 using namespace std;
+using namespace Eigen;
+
 namespace parasuite
 {
 namespace geometry {
@@ -20,7 +23,7 @@ namespace geometry {
     class Rib {
         public:
             double cordlength;
-            vec rotation;
+            Vector3d rotation;
             Spline topsailSpline;
             Spline bottomsailSpline;
             double cellopening_start, cellopening_end;

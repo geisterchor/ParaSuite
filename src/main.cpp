@@ -8,13 +8,12 @@
 
 
 #include <iostream>
+#include <Eigen/Dense>
+using namespace Eigen;
 
 #include "geometry/paraglider.h"
 #include "geometry/airfoil.h"
 #include "geometry/spline.h"
-#include <armadillo>
-
-using namespace arma;
 
 using namespace std;
 using namespace parasuite::geometry;
@@ -27,11 +26,11 @@ int main(void) {
     f.readCsv("doc/example/NACA2216.csv");
     
     Spline s;
-    s.points.push_back(vec{0,0,0});
-    s.points.push_back(vec{1,0,0});
-    s.points.push_back(vec{1,1,0});
-    s.points.push_back(vec{2,1,0});
-    s.points.push_back(vec{2,0,0});
+    s.points.push_back(Vector3d(0,0,0));
+    s.points.push_back(Vector3d(1,0,0));
+    s.points.push_back(Vector3d(1,1,0));
+    s.points.push_back(Vector3d(2,1,0));
+    s.points.push_back(Vector3d(2,0,0));
     s.calculateSpline();
     
     return 0;

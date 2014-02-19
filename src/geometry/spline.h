@@ -9,11 +9,11 @@
 #ifndef _SPLINE_H
 #define _SPLINE_H
 
-#include <armadillo>
+#include <Eigen/Dense>
 #include <deque>
 
 using namespace std;
-using namespace arma;
+using namespace Eigen;
 
 namespace parasuite
 {
@@ -21,10 +21,10 @@ namespace geometry {
 
     class Spline {
         public:
-            deque<vec> points;
+            deque<Vector3d> points;
             void calculateSpline();
         protected:
-            mat a, b, c, d; 
+            //mat a, b, c, d; 
     };
 
 }

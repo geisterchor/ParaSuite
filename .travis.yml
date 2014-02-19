@@ -5,7 +5,8 @@ compiler:
 before_install:
 - sudo apt-get update
 install:
-- sudo apt-get install libarmadillo-dev
+- sudo apt-get install libeigen3-dev
+- sudo ln -s /usr/include/eigen3/Eigen /usr/include/Eigen
 - sudo apt-get install libboost-all-dev
 - sudo apt-get install python-ply
 - wget http://mirrors.kernel.org/ubuntu/pool/universe/c/cxxtest/cxxtest_4.0.3-2_all.deb

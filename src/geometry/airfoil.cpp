@@ -11,8 +11,10 @@
 #include <iostream>
 #include <sstream>
 #include <boost/lexical_cast.hpp>
+#include <Eigen/Dense>
 
 using namespace std;
+using namespace Eigen;
 using namespace parasuite::geometry;
 
 void Airfoil::readCsv(string filename, unsigned int startline) {
@@ -28,7 +30,7 @@ void Airfoil::readCsv(string filename, unsigned int startline) {
     while(getline(f,line)) {
         if(++i > startline) {
             n=0;
-            vec p(2);
+            Vector2d p;
             istringstream ss(line);
             while(getline(ss,col,',')) {
                 p[n++] = boost::lexical_cast<double>(col);

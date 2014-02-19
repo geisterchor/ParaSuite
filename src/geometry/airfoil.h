@@ -9,11 +9,11 @@
 #ifndef _AIRFOIL_H
 #define _AIRFOIL_H
 
-#include <armadillo>
+#include <Eigen/Dense>
 #include <list>
 
 using namespace std;
-using namespace arma;
+using namespace Eigen;
 
 namespace parasuite
 {
@@ -21,7 +21,7 @@ namespace geometry {
 
     class Airfoil {
         private:
-            list<vec> points;
+            list<Vector2d> points;
         public:
             void readCsv(string filename, unsigned int startline = 1);
     };

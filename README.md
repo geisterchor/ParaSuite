@@ -16,9 +16,9 @@ Dependencies
 ### Compiler
 ParaSuite is tested with the g++ and clang compiler. But probably it will compile with Intel C++ and Microsoft C++, too.
 ### Libraries
-* armadillo
-* boost
-* cxxtest
+* [Eigen](http://eigen.tuxfamily.org/)
+* [Boost](http://www.boost.org/)
+* [CxxTest](http://cxxtest.com/)
 
 
 Installation
@@ -26,7 +26,8 @@ Installation
 ### Ubuntu 12.10 or newer
 
     sudo apt-get install build-essential g++
-    sudo apt-get install libboost-all-dev libarmadillo-dev cxxtest
+    sudo apt-get install libboost-all-dev libeigen3-dev cxxtest
+    sudo ln -s /usr/include/eigen3/Eigen /usr/include/Eigen
     sudo apt-get install git
     
     git clone https://github.com/geisterchor/ParaSuite.git
