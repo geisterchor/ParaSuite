@@ -18,7 +18,7 @@ using namespace std;
 using namespace Eigen;
 using namespace parasuite::geometry;
 
-void Airfoil::readCsv(string filename, unsigned int startline) {
+void Airfoil::readCsv(const string filename, const unsigned int startline) {
     ifstream f(filename.c_str());
     
     if(!f) {

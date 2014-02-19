@@ -9,18 +9,16 @@
 
 #include <iostream>
 #include <Eigen/Dense>
-using namespace Eigen;
 
-#include "geometry/paraglider.h"
 #include "geometry/airfoil.h"
 #include "geometry/spline.h"
 
 using namespace std;
+using namespace Eigen;
 using namespace parasuite::geometry;
 
 int main(void) {    
     cout << "Hallo Welt!" << endl;
-    Paraglider p;
     
     Airfoil f;
     f.readCsv("doc/example/NACA2216.csv");
@@ -35,3 +33,33 @@ int main(void) {
     
     return 0;
 }
+
+
+/*
+#include <plplot/plplot.h>
+#include <plplot/plstream.h>
+
+int main()
+{
+    const int NSIZE = 4;
+    double xmin = 0., xmax = 5., ymin = 0., ymax = 5.;
+    
+	double x[4] = {0,1,1,2};
+	double y[4] = {0,0,1,1};
+
+    cout << "A" << endl;
+    plstream pls;
+    cout << "B" << endl;
+    pls.init();
+    cout << "C" << endl;
+    pls.env( xmin, xmax, ymin, ymax, 0, 0 );
+    cout << "D" << endl;
+    pls.lab( "x", "y", "XY-Plot" );
+    cout << "E" << endl;
+    pls.line( NSIZE, x, y );
+    cout << "F" << endl;
+
+    return 0;
+}
+*/
+

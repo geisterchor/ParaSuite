@@ -23,7 +23,7 @@ namespace geometry {
         private:
             list<Vector2d> points;
         public:
-            void readCsv(string filename, unsigned int startline = 1);
+            void readCsv(const string filename, const unsigned int startline = 1);
     };
 }
 }
