@@ -8,10 +8,12 @@
 
 
 #include <iostream>
+#define EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET
 #include <Eigen/Dense>
 
 #include "geometry/airfoil.h"
 #include "geometry/spline.h"
+
 
 using namespace std;
 using namespace Eigen;
