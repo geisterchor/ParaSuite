@@ -5,7 +5,8 @@ compiler:
 before_install:
 - sudo apt-get update
 install:
-- sudo apt-get install libeigen3-dev
+- sudo wget http://mirrors.kernel.org/ubuntu/pool/universe/e/eigen3/libeigen3-dev_3.2.0-4_all.deb
+- sudo dpkg -i libeigen3-dev_3.2.0-4_all.deb
 - sudo ln -s /usr/include/eigen3/Eigen /usr/include/Eigen
 - sudo apt-get install libboost-all-dev
 - sudo apt-get install python-ply
