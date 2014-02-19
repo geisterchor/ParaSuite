@@ -6,18 +6,41 @@
  * Licensed under the terms of the GNU General Public License, version 3.
  */
 
+#include<fstream>
 
 #include <iostream>
 #include <Eigen/Dense>
+
+#include <boost/lexical_cast.hpp>
 
 #include "geometry/airfoil.h"
 #include "geometry/spline.h"
 
 
 using namespace std;
+using namespace boost;
 using namespace Eigen;
 using namespace parasuite::geometry;
 
+
+void writeToCSVfile(string name, MatrixXd matrix)
+{
+  ofstream file(name.c_str());
+
+  for(int  i = 0; i < matrix.rows(); i++){
+      for(int j = 0; j < matrix.cols(); j++){
+         string str = lexical_cast<std::string>(matrix(i,j));
+         if(j+1 == matrix.cols()){
+             file<<str;
+         }else{
+             file<<str<<',';
+         }
+      }
+      file<<'\n';
+  }
+}
+
+  
 int main(void) {    
     cout << "Hallo Welt!" << endl;
     
@@ -28,9 +51,24 @@ int main(void) {
     s.points.push_back(Vector3d(0,0,0));
     s.points.push_back(Vector3d(1,0,0));
     s.points.push_back(Vector3d(1,1,0));
-    s.points.push_back(Vector3d(2,1,0));
-    s.points.push_back(Vector3d(2,0,0));
+    s.points.push_back(Vector3d(0,1,0));
+    s.points.push_back(Vector3d(-1,2,0));
+    s.points.push_back(Vector3d(3,0,0));
     s.calculateSpline();
+    
+    const int n = 21;
+    MatrixXd points(n,3);
+    VectorXf ts = VectorXf::LinSpaced(n, 0.0, 1.0);
+    cout << "ts:" << ts.data() << endl;
+    double t;
+    for(unsigned int i = 0; i<n; i++) {
+        t = ts(i);
+        Vector3d pnt = s.getPoint(t);
+        cout << "t = " << t << endl << pnt << endl << endl;
+        points.row(i) = pnt.transpose();
+    }
+    cout << points << endl;
+    writeToCSVfile("points.csv",points);
     
     return 0;
 }

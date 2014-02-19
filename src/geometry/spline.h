@@ -22,9 +22,12 @@ namespace geometry {
     class Spline {
         public:
             deque<Vector3d> points;
+            
             void calculateSpline();
+            Vector3d getPoint(double tau);
         protected:
-            //mat a, b, c, d; 
+            unsigned int n;
+            MatrixXd a, b, c, d; 
     };
 
 }

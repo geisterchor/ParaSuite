@@ -19,14 +19,14 @@ using namespace std;
 using namespace parasuite::geometry;
 
 void Spline::calculateSpline() {
-    const unsigned int n = points.size();
+    n = points.size();
     assert (n >= 2);
-    /*
-    a = mat(n,3);
-    b = mat(n,3);
-    c = mat(n,3);
-    d = mat(n,3);
-    */
+    
+    this->a = MatrixXd(n,3);
+    this->b = MatrixXd(n,3);
+    this->c = MatrixXd(n,3);
+    this->d = MatrixXd(n,3);
+    
     int a = 0;
     int b = 1;
     int c = 2;
@@ -91,9 +91,37 @@ void Spline::calculateSpline() {
         }
         VectorXd x = solver.solve(rhs);
         
+        for(unsigned int i=0; i<n-1; i++) {
+            this->a(i,p) = x[i*4+0];
+            this->b(i,p) = x[i*4+1];
+            this->c(i,p) = x[i*4+2];
+            this->d(i,p) = x[i*4+3];
+        }
+        
             
         cout << "RHS:" << endl << rhs << endl << endl;    
         cout << "x:" << endl << x << endl << endl;        
         cout << "Residuum:" << (M*x - rhs).norm() << endl << endl;
     }    
 }
+
+Vector3d Spline::getPoint(double tau) {
+    assert ( tau >= 0 );
+    assert ( tau <= 1 );
+    
+    double t = tau * (n-1);
+    
+    unsigned int i = floor(t);
+    if (i==n-1)
+        i=n-2;
+    
+    cout << "tau="<<tau << " t="<<t << " i="<<i << " n="<<n<<endl;
+    
+    Vector3d res;
+    for(int p = 0; p<3; p++) {
+        res[p] = a(i,p) + b(i,p)*(t-i) + c(i,p)*(t-i)*(t-i) + d(i,p)*(t-i)*(t-i)*(t-i);
+    }
+    return res;
+}
+
+
