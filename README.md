@@ -33,7 +33,9 @@ Installation
     git clone https://github.com/geisterchor/ParaSuite.git
     cd ParaSuite
     make
+    
+If things don't compile, update to the latest library releases. You may even look into the .travis.yml which is used to do the continuous testing on travis Ubuntu 12.04 VMs.
 
 License
 -------
-ParaSuite is licensed under [GPL 3.0](http://www.gnu.org/licenses/gpl-3.0).
+ParaSuite code is licensed under [GPL 3.0](http://www.gnu.org/licenses/gpl-3.0), documentation under [CC BY SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/).
