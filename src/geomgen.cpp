@@ -59,12 +59,9 @@ int main(void) {
     const int n = 21;
     MatrixXd points(n,3);
     VectorXf ts = VectorXf::LinSpaced(n, 0.0, 1.0);
-    cout << "ts:" << ts.data() << endl;
-    double t;
     for(unsigned int i = 0; i<n; i++) {
-        t = ts(i);
+        double t = ts(i);
         Vector3d pnt = s.getPoint(t);
-        cout << "t = " << t << endl << pnt << endl << endl;
         points.row(i) = pnt.transpose();
     }
     cout << points << endl;

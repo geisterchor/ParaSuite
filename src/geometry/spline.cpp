@@ -18,68 +18,41 @@
 using namespace std;
 using namespace parasuite::geometry;
 
+/**
+ * \brief Calculates Spline coefficients
+ * 
+ * calculates coefficients for three 1d splines that
+ * will be merged to a 3d spline afterwards.
+ * The 1d cubic spline algorithm is described here: 
+ * http://mathworld.wolfram.com/CubicSpline.html
+ */
 void Spline::calculateSpline() {
     n = points.size();
     assert (n >= 2);
     
-    this->a = MatrixXd(n,3);
-    this->b = MatrixXd(n,3);
-    this->c = MatrixXd(n,3);
-    this->d = MatrixXd(n,3);
+    a = MatrixXd(n,3);
+    b = MatrixXd(n,3);
+    c = MatrixXd(n,3);
+    d = MatrixXd(n,3);
     
-    int a = 0;
-    int b = 1;
-    int c = 2;
-    int d = 3;
-    
-    
-    const unsigned int lgs_size = 4*(n-1);
     for(unsigned int p=0; p<3; p++) {
-        SparseMatrix<double> M(lgs_size,lgs_size);
-        VectorXd rhs(lgs_size);
-        rhs.fill(0);
+        SparseMatrix<double> M(n,n);
+        VectorXd rhs(n);
         
-        for(unsigned int i=0; i<n; i++)
-            cout << points[i] << endl;
+        M.insert(0,0) = 2;
+        M.insert(0,1) = 1;
         
-        for(unsigned int i=0; i<n-1; i++) {
-            M.insert(4*i + 0, 4*i + a) = 1;
-            rhs(4*i + 0) = points[i][p];
-            
-            M.insert(4*i + 1, 4*i + a) = 1;
-            M.insert(4*i + 1, 4*i + b) = 1;
-            M.insert(4*i + 1, 4*i + c) = 1;
-            M.insert(4*i + 1, 4*i + d) = 1;
-            rhs(4*i + 1) = points[i+1][p];
-            
-            if(i<n-2) {
-                M.insert(4*i + 2, 4*i + b) = 1;
-                M.insert(4*i + 2, 4*i + c) = 2;
-                M.insert(4*i + 2, 4*i + d) = 3;
-                M.insert(4*i + 2, 4*(i+1) + b) = -1;
-            }
-            else {
-                M.insert(4*i + 2, c) = 1;  // 2nd derivative at first knot = 0
-            }
-            rhs(4*i + 2) = 0;
-        
-            M.insert(4*i + 3, 4*i + c) = 1;
-            M.insert(4*i + 3, 4*i + d) = 3;
-            if(i<n-2) {
-                M.insert(4*i + 3, 4*(i+1) + c) = -1;
-            }
-                rhs(4*i + 3) = 0;
+        rhs(0) = 3*(points[1][p] - points[0][p]);
+        for (unsigned int i=1; i<n-1; i++) {
+            M.insert(i,i-1) = 1;
+            M.insert(i,i)   = 4;
+            M.insert(i,i+1) = 1;
+            rhs(i) = 3*(points[i+1][p] - points[i-1][p]);
         }
+        M.insert(n-1,n-2) = 1;
+        M.insert(n-1,n-1) = 2;
+        rhs(n-1) = 3*(points[n-1][p] - points[n-2][p]);
         
-        // packaging the 2nd derivative in a nice row with a diagonal element
-        M.coeffRef(4*(n-1)-2, 4*(n-2) + 0) += M.coeffRef(4*(n-1)-3, 4*(n-2) + 0);
-        M.coeffRef(4*(n-1)-2, 4*(n-2) + 1) += M.coeffRef(4*(n-1)-3, 4*(n-2) + 1);
-        M.coeffRef(4*(n-1)-2, 4*(n-2) + 2) += M.coeffRef(4*(n-1)-3, 4*(n-2) + 2);
-        M.coeffRef(4*(n-1)-2, 4*(n-2) + 3) += M.coeffRef(4*(n-1)-3, 4*(n-2) + 3);
-        rhs(4*(n-1)-2) = rhs(4*(n-1)-2) + rhs(4*(n-1)-3);
-        
-        cout << "M:" << endl << MatrixXd(M) << endl << endl;  
-                
         BiCGSTAB<SparseMatrix<double>, IncompleteLUT<double>> solver;
         solver.preconditioner().setFillfactor(7);
         //solver.setMaxIterations(100);
@@ -92,16 +65,18 @@ void Spline::calculateSpline() {
         VectorXd x = solver.solve(rhs);
         
         for(unsigned int i=0; i<n-1; i++) {
-            this->a(i,p) = x[i*4+0];
-            this->b(i,p) = x[i*4+1];
-            this->c(i,p) = x[i*4+2];
-            this->d(i,p) = x[i*4+3];
+            a(i,p) = points[i][p];
+            b(i,p) = x[i];
+            c(i,p) = 3*(points[i+1][p]-points[i][p]) - 2*x[i]-x[i+1];
+            d(i,p) = 2*(points[i][p]-points[i+1][p]) + x[i] + x[i+1];
         }
         
-            
+        #ifdef DEBUG
+        cout << "M:" << endl << MatrixXd(M) << endl << endl;  
         cout << "RHS:" << endl << rhs << endl << endl;    
         cout << "x:" << endl << x << endl << endl;        
         cout << "Residuum:" << (M*x - rhs).norm() << endl << endl;
+        #endif
     }    
 }
 
@@ -115,7 +90,9 @@ Vector3d Spline::getPoint(double tau) {
     if (i==n-1)
         i=n-2;
     
+    #ifdef DEBUG
     cout << "tau="<<tau << " t="<<t << " i="<<i << " n="<<n<<endl;
+    #endif
     
     Vector3d res;
     for(int p = 0; p<3; p++) {
