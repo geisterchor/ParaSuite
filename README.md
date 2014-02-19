@@ -16,9 +16,9 @@ Dependencies
 ### Compiler
 ParaSuite is tested with the g++ and clang compiler. But probably it will compile with Intel C++ and Microsoft C++, too.
 ### Libraries
-* [Eigen](http://eigen.tuxfamily.org/)
-* [Boost](http://www.boost.org/)
-* [CxxTest](http://cxxtest.com/)
+* [Eigen](http://eigen.tuxfamily.org/) ([MPL 2.0](http://www.mozilla.org/MPL/2.0/))
+* [Boost](http://www.boost.org/) ([Boost License](http://www.boost.org/LICENSE_1_0.txt))
+* [CxxTest](http://cxxtest.com/) ([LGPL](http://www.gnu.org/licenses/lgpl.html))
 
 
 Installation

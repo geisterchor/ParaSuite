@@ -12,6 +12,7 @@
 #include <sstream>
 #include <boost/lexical_cast.hpp>
 #include <Eigen/Dense>
+#include <stdexcept>
 
 using namespace std;
 using namespace Eigen;
