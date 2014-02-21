@@ -9,6 +9,7 @@ The ParaSuite Geometry-Generator is a tool to generate a paraglider geometry fro
 Feature Set
 -----------
 The following features are currently under development:
+
 * Reading airfoil from CSV
 * Creating ribs
 * Ballooning
