@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <parasuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://parasuite.geisterchor.com/xml/20140217/parasuite.xsd">
+         xsi:noNamespaceSchemaLocation="http://parasuite.geisterchor.com/xml/schema/20140217/parasuite.xsd">
     <geometry>
         <paraglider>
             <airfoils>
