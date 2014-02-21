@@ -5,9 +5,8 @@ ParaSuite
 
 Documentation
 -------------
-* [Project Website](http://parasuite.geisterchor.com)
-* [Doxygen API Documentation](http://parasuite.geisterchor.com/doxygen)
-* [GitHub Wiki](https://github.com/geisterchor/ParaSuite/wiki)
+* [Project Website & Documentation](http://parasuite.geisterchor.com)
+* [Doxygen API Reference](http://parasuite.geisterchor.com/doxygen)
 * [GitHub Issue Tracker](https://github.com/geisterchor/ParaSuite/issues)
 
 
