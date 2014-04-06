@@ -22,8 +22,10 @@ namespace geometry {
 
     class Spline {
         public:
+			Spline();
+
             deque<Vector3d> points;
-            unsigned int length_sampling_points = 101;
+            unsigned int length_sampling_points;
 
     		double length();
             void calculateSpline();

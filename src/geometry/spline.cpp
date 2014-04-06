@@ -18,6 +18,10 @@
 using namespace std;
 using namespace parasuite::geometry;
 
+Spline::Spline() {
+	length_sampling_points = 101;
+}
+
 /**
  * \brief Calculates Spline coefficients
  * 
