@@ -77,10 +77,15 @@ void Spline::calculateSpline() {
         cout << "x:" << endl << x << endl << endl;        
         cout << "Residuum:" << (M*x - rhs).norm() << endl << endl;
         #endif
-    }    
+    }
+	calculateLength();
 }
 
-Vector3d Spline::getPoint(double tau) {
+double Spline::length() {
+	return _length;
+}
+
+Vector3d Spline::getTauPoint(double tau) {
     assert ( tau >= 0 );
     assert ( tau <= 1 );
     
@@ -101,4 +106,59 @@ Vector3d Spline::getPoint(double tau) {
     return res;
 }
 
+void Spline::calculateLength() {
+	Vector3d lastp;
+	Vector3d p;
+	_length = 0.0;
+	for (unsigned int i=0; i<length_sampling_points; i++) {
+		double x = ((double) i) / (length_sampling_points - 1);
+		p = getTauPoint(x);
+		if(i>0) {
+			_length += (p-lastp).norm();
+		}
+		lastp = p;
+	}
+}
 
+Vector3d Spline::getPoint(double tau) {
+	if (tau == 0.0 || tau == 1.0)
+		return getTauPoint(tau);
+	assert (tau > 0.0);
+	assert (tau < 1.0);
+
+
+	Vector3d lastp;
+	Vector3d p;
+	double t = 0.0;
+	double x;
+	double oldt;
+	double oldx = 0.0;
+	for (unsigned int i=0; i<length_sampling_points; i++) {
+		x = ((double) i) / (length_sampling_points - 1);
+		p = getTauPoint(x);
+		if(i>0) {
+			t += (p-lastp).norm() / _length;
+		}
+		lastp = p;
+
+		if (t > tau) {
+			auto tmp = oldx + (x - oldx) * (tau - oldt) / (t - oldt);
+			return getTauPoint(tmp);
+		}
+		oldx = x;
+		oldt = t;
+	}
+	throw new exception();
+}
+
+
+std::vector<Vector3d> Spline::getEquallySpacedPoints(const unsigned int n) {
+	std::vector<Vector3d> l(n);
+	unsigned int i=0;
+	for (auto& it : l) {
+		double x = ((double) i) / (n-1);
+		it = getPoint(x);
+		i++;
+	}
+	return l;
+}

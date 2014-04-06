@@ -11,6 +11,7 @@
 
 #include <Eigen/Dense>
 #include <deque>
+#include <vector>
 
 using namespace std;
 using namespace Eigen;
@@ -22,10 +23,16 @@ namespace geometry {
     class Spline {
         public:
             deque<Vector3d> points;
-            
+            unsigned int length_sampling_points = 101;
+
+    		double length();
             void calculateSpline();
             Vector3d getPoint(double tau);
+            Vector3d getTauPoint(double tau);
+            std::vector<Vector3d> getEquallySpacedPoints(const unsigned int numberOfPoints);
         protected:
+            double _length;
+            void calculateLength();
             unsigned int n;
             MatrixXd a, b, c, d; 
     };

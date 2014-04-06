@@ -52,8 +52,9 @@ int main(void) {
     s.points.push_back(Vector3d(-1,2,0));
     s.points.push_back(Vector3d(3,0,0));
     s.calculateSpline();
+    cout << "spline length: "<< s.length() << endl;
     
-    const int n = 101;
+    const int n = 25;
     MatrixXd points(n,3);
     VectorXf ts = VectorXf::LinSpaced(n, 0.0, 1.0);
     for(unsigned int i = 0; i<n; i++) {
