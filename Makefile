@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-std=c++0x
+CFLAGS=-std=c++0x -g
 #LDFLAGS=-lplplotcxxd
 LDFLAGS=
 SOURCES=src/geometry/airfoil.cpp src/geometry/spline.cpp

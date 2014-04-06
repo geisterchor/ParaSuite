@@ -9,35 +9,32 @@
 #include<fstream>
 
 #include <iostream>
-#include <Eigen/Dense>
+#include <sstream>
 
-#include <boost/lexical_cast.hpp>
+#include <Eigen/Dense>
 
 #include "geometry/airfoil.h"
 #include "geometry/spline.h"
 
 
 using namespace std;
-using namespace boost;
 using namespace Eigen;
 using namespace parasuite::geometry;
 
 
 void writeToCSVfile(string name, MatrixXd matrix)
 {
-  ofstream file(name.c_str());
+	ofstream file(name.c_str());
 
-  for(int  i = 0; i < matrix.rows(); i++){
-      for(int j = 0; j < matrix.cols(); j++){
-         string str = lexical_cast<std::string>(matrix(i,j));
-         if(j+1 == matrix.cols()){
-             file<<str;
-         }else{
-             file<<str<<',';
-         }
-      }
-      file<<'\n';
-  }
+	for(int  i = 0; i < matrix.rows(); i++) {
+		for(int j = 0; j < matrix.cols(); j++) {
+			file << matrix(i,j);
+			if(j+1 < matrix.cols()){
+				file << ',';
+			}
+		}
+		file << '\n';
+	}
 }
 
   
